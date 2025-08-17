@@ -428,7 +428,7 @@ ASSISTANT: { "step": "OUTPUT", "content": "✅ Successfully cloned https://examp
         try {
             const response = await retryWithBackoff(async () => {
                 return await client.chat.completions.create({
-                    model: 'gemini-2.0-flash-lite',
+                    model: 'gemini-1.5-flash',
                     messages: messages,
                     response_format: { type: "json_object" },
                 });

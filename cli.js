@@ -6,6 +6,7 @@ import inquirer from 'inquirer';
 import { createSpinner } from 'nanospinner';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { runMiniCursor } from './minicursor.js';
 
 const execAsync = promisify(exec);
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
@@ -16,20 +17,30 @@ const themeGradient = gradient(['#fb923c', '#f97316', '#eab308']);
 async function welcome() {
     console.clear();
     return new Promise((resolve) => {
-        figlet('ChaiCode CLI', { font: 'Big' }, (err, data) => {
+        figlet('ChaiAurCode CLI', { font: 'Big' }, (err, data) => {
             if (err) {
                 console.log('Error generating figlet');
                 resolve();
                 return;
             }
             console.log(themeGradient.multiline(data));
-            const rainbowTitle = chalkAnimation.rainbow('Welcome to Website Cloner!\n');
+            const rainbowTitle = chalkAnimation.rainbow('Welcome to ChaiAurCode CLI!\n');
             sleep(1000).then(() => {
                 rainbowTitle.stop();
                 resolve();
             });
         });
     });
+}
+
+async function askAction() {
+    const answers = await inquirer.prompt({
+        name: 'action',
+        type: 'list',
+        message: 'What would you like to do?',
+        choices: ['Clone a website', 'Use Mini Cursor'],
+    });
+    return answers.action;
 }
 
 async function askURL() {
@@ -88,7 +99,7 @@ function extractEssentialInfo(output) {
 }
 
 async function cloneWebsite(url) {
-    const spinner = createSpinner(`Cloning ${url}...`).start();
+    const spinner = createSpinner(`☕ Haanji! To jb tk cloning chalrhi hai, aap chai pijiye aur thoda relax kijiye.`).start();
 
     try {
         const { stdout, stderr } = await execAsync(`node agent.js ${url}`);
@@ -146,8 +157,13 @@ async function cloneWebsite(url) {
 
 async function main() {
     await welcome();
-    const url = await askURL();
-    await cloneWebsite(url);
+    const action = await askAction();
+    if (action === 'Clone a website') {
+        const url = await askURL();
+        await cloneWebsite(url);
+    } else if (action === 'Use Mini Cursor') {
+        await runMiniCursor();
+    }
 }
 
 main();

@@ -112,7 +112,7 @@ async function runMiniCursor() {
     while (true) {
         try {
             const response = await client.chat.completions.create({
-                model: 'gemini-1.5-flash',
+                model: 'gemini-2.0-flash',
                 messages: messages,
                 response_format: { type: "json_object" },
             });

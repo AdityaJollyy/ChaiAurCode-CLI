@@ -95,14 +95,6 @@ cloned-example.com/
 - **Nanospinner**: Loading spinners
 - **p-limit**: Concurrency control
 
-## 🔒 Environment Variables
-
-Create a `.env` file with the following:
-
-```env
-GEMINI_API_KEY=your_gemini_api_key_here
-```
-
 ## ⚠️ Important Notes
 
 - **Respect robots.txt**: Always check the website's robots.txt file
